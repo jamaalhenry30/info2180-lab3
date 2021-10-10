@@ -26,6 +26,12 @@ window.onload=function(){
                 }k++;
 
             },{once: true});
+            box.addEventListener("mouseover",function(){
+                box.classList.add("hover");
+            });
+            box.addEventListener("mouseout",function(){
+                box.classList.remove("hover");
+            });
            
             }
 }
