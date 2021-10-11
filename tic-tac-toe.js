@@ -53,33 +53,51 @@ window.onload=function(){
 
     function main(a){
         if(myturn=='X'){
-            a.target.textContent = 'X';
-            a.target.classList.add('X');
             myturn = 'O';
             Xplay.push(a.target.id);
+            a.target.textContent = 'X';
+            a.target.classList.add('X');
             if(iswinner(Xplay)){
                 statusdiv.textContent = 'Congratulations!  X  is  the  Winner!';
                 statusdiv.className='you-won';
                 for(i=0; i<squares.length; i++){
-                    squares[i].removeEventListener('click', main, { once: true});
+                squares[i].removeEventListener('click', main, { once: true});
                 }
             }
 
         }else{
-            a.target.textContent = 'O';
-            a.target.classList.add('O');
             myturn = 'X';
             Oplay.push(a.target.id);
+            a.target.textContent = 'O';
+            a.target.classList.add('O');
             if(iswinner(Oplay)){
                 statusdiv.textContent = 'Congratulations!  O  is  the  Winner!';
                 statusdiv.className='you-won';
                 for(i=0; i<squares.length; i++){
-                    squares[i].removeEventListener('click', main, { once: true});
+                squares[i].removeEventListener('click', main, { once: true});
                 }
             }
         }
 
     }
+
+    let bigredbutn = document.querySelector('.btn');
+
+    function bigredbutton(a){
+        myturn = 'X';
+        statusdiv.innerHTML = 'Move your mouse over a square and click to play an X or an O.';
+        statusdiv.classList.remove('you-won');
+        Xplay = [];
+        Oplay = [];
+        for(i=0; i<squares.length; i++){
+            squares[i].addEventListener('click', main, { once: true});
+            squares[i].classList.remove('X');
+            squares[i].textContent = '';
+            squares[i].classList.remove('O');
+        }
+    }
+
+    bigredbutn.addEventListener('click', bigredbutton);
     
 
 }
