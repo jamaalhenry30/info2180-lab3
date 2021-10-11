@@ -7,8 +7,8 @@ window.onload=function(){
         squares[i].className = "square";
         squares[i].addEventListener("mouseover",addhover);
         squares[i].addEventListener("mouseout",removehover);
-        squares[i].id=""+i;
-        squares[i].addEventListener("click",main,{ once: true});
+        squares[i].id= ""+i;
+        squares[i].addEventListener("click", main ,{ once: true});
 
     }
 
@@ -31,23 +31,55 @@ window.onload=function(){
         ['2','4','6'] ];
     
     let myturn = 'X';
+    let plays = [];
     let Xplay = [];
     let Oplay = [];
 
+    function iswinner(a){
+        for(i=0;i<winningsSets.length;i++){
+            var k = 0;
+            for(z = 0; z<winningsSets[i].length;z++){
+                if(a.includes(winningsSets[i][z])){
+                    k+=1;
+                    if(k==3){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    let statusdiv = document.getElementById('status');
+
     function main(a){
         if(myturn=='X'){
-            a.target.innerHTML = 'X';
-            a.target.classList.add("X");
+            a.target.textContent = 'X';
+            a.target.classList.add('X');
             myturn = 'O';
             Xplay.push(a.target.id);
+            if(iswinner(Xplay)){
+                statusdiv.textContent = 'Congratulations!  X  is  the  Winner!';
+                statusdiv.className='you-won';
+                for(i=0; i<squares.length; i++){
+                    squares[i].removeEventListener('click', main, { once: true});
+                }
+            }
 
         }else{
-            a.target.innerHTML = 'O';
-            a.target.classList.add("O");
+            a.target.textContent = 'O';
+            a.target.classList.add('O');
             myturn = 'X';
             Oplay.push(a.target.id);
+            if(iswinner(Oplay)){
+                statusdiv.textContent = 'Congratulations!  O  is  the  Winner!';
+                statusdiv.className='you-won';
+                for(i=0; i<squares.length; i++){
+                    squares[i].removeEventListener('click', main, { once: true});
+                }
+            }
         }
 
     }
+    
 
 }
